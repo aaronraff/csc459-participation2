@@ -22,7 +22,7 @@ employeeData <- read.csv("employeeReviews.csv", stringsAsFactors = FALSE)
 employeeStatus <- employeeData %>% group_by(grepl("Current Employee", job.title))
 ```
 
-### Create a dataframe based on the grouping that shows the average ratings for each field.
+### Create a dataframe containing the mean of each star rating given by both current and former employees
 ```{r}
 results <- suppressWarnings(data.frame(
   status=c("Former Employees", "Current Employees"),
@@ -38,6 +38,12 @@ results <- suppressWarnings(data.frame(
 print(results)
 ```
 
-### Results
+### Plot the results
+```{r}
+barplot(as.matrix(results[,c(-1,-2)]), main="Current vs Former Employee Reviews",
+  xlab="Number of Stars", col=c("darkblue","red"),
+  legend = c("Former Employees", "Current Employees"), ylim=c(0,5), beside=TRUE, xpd = FALSE)
+```
 
-The findings show that current employee's average rating across all fields is always higher than former employee's average ratings.
+### Results
+As you can see the grouped bar plot shows that, on average, former employees give lower ratings than current employees.
