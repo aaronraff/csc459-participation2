@@ -1,0 +1,43 @@
+---
+title: "Participation Assignment 2 - Employee Reviews"
+author: "Evan Buss, Aaron Raff"
+date: "February 12, 2019"
+due: "February 17, 2019"
+output: html_document
+---
+
+## Question
+### Do former employees give lower company ratings than current employees?
+
+```{r}
+library(dplyr)
+# Load data set
+employeeData <- read.csv("employeeReviews.csv", stringsAsFactors = FALSE)
+```
+
+
+### Group data set based on the reviewers employment status.
+```{r}
+# Group the reviews based on whether it is from a current employee or a former employee
+employeeStatus <- employeeData %>% group_by(grepl("Current Employee", job.title))
+```
+
+### Create a dataframe based on the grouping that shows the average ratings for each field.
+```{r}
+results <- suppressWarnings(data.frame(
+  status=c("Former Employees", "Current Employees"),
+  summarise(employeeStatus, reviews=n())[2],
+  round(summarise(employeeStatus, overall = mean(as.numeric(overall.ratings)))[2], digits = 2),
+  round(summarise(employeeStatus, workBalance = mean(as.numeric(work.balance.stars), na.rm = TRUE))[2], digits = 2),
+  round(summarise(employeeStatus, culture = mean(as.numeric(culture.values.stars), na.rm = TRUE))[2], digits = 2),
+  round(summarise(employeeStatus, opportunities = mean(as.numeric(carrer.opportunities.stars), na.rm = TRUE))[2], digits = 2),
+  # round(summarise(employeeStatus, benefits = mean(as.numeric(comp.benefit.stars), na.rm = TRUE)), digits = 2)[2],
+  round(summarise(employeeStatus, management = mean(as.numeric(senior.mangemnet.stars), na.rm = TRUE))[2], digits = 2)
+))
+
+print(results)
+```
+
+### Results
+
+The findings show that current employee's average rating across all fields is always higher than former employee's average ratings.
