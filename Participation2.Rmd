@@ -40,8 +40,8 @@ print(results)
 
 ### Plot the results
 ```{r}
-barplot(as.matrix(results[,c(-1,-2)]), main="Current vs Former Employee Reviews",
-  xlab="Number of Stars", col=c("darkblue","red"),
+bplot <- barplot(as.matrix(results[,c(-1,-2)]), main="Average Current vs Former Employee Reviews",
+  xlab="Company Rating Category", col=c("red3","deepskyblue"), ylab = "Average Number of Stars",
   legend = c("Former Employees", "Current Employees"), ylim=c(0,5), beside=TRUE, xpd = FALSE)
 ```
 
