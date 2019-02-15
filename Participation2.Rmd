@@ -31,7 +31,7 @@ results <- suppressWarnings(data.frame(
   round(summarise(employeeStatus, workBalance = mean(as.numeric(work.balance.stars), na.rm = TRUE))[2], digits = 2),
   round(summarise(employeeStatus, culture = mean(as.numeric(culture.values.stars), na.rm = TRUE))[2], digits = 2),
   round(summarise(employeeStatus, opportunities = mean(as.numeric(carrer.opportunities.stars), na.rm = TRUE))[2], digits = 2),
-  # round(summarise(employeeStatus, benefits = mean(as.numeric(comp.benefit.stars), na.rm = TRUE)), digits = 2)[2],
+  round(summarise(employeeStatus, benefits = mean(as.numeric(comp.benefit.stars), na.rm = TRUE))[2], digits = 2),
   round(summarise(employeeStatus, management = mean(as.numeric(senior.mangemnet.stars), na.rm = TRUE))[2], digits = 2)
 ))
 
@@ -40,9 +40,14 @@ print(results)
 
 ### Plot the results
 ```{r}
-bplot <- barplot(as.matrix(results[,c(-1,-2)]), main="Average Current vs Former Employee Reviews",
-  xlab="Company Rating Category", col=c("red3","deepskyblue"), ylab = "Average Number of Stars",
-  legend = c("Former Employees", "Current Employees"), ylim=c(0,5), beside=TRUE, xpd = FALSE)
+bplot <- barplot(as.matrix(results[,c(-1,-2)]), 
+                 main="Average Current vs Former Employee Reviews", 
+                 xlab="Company Rating Category", 
+                 col=c("red3","deepskyblue"), 
+                 ylab = "Average Number of Stars",
+                 legend = c("Former Employees", "Current Employees"),
+                 args.legend = list(x="topright", bty='n'),
+                 ylim=c(0,5), beside=TRUE, xpd = FALSE)
 ```
 
 ### Results
